@@ -1,0 +1,6 @@
+update_interval: 30 # seconds
+
+api_key: 'YOUR_API_KEYS'
+
+steam_ids:
+  - 76561197960435530 # Robin Walker
