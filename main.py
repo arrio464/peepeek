@@ -57,7 +57,7 @@ class Player:
 
 class Peeker:
     def __init__(self, config_file="config.yaml"):
-        config = yaml.safe_load(open(config_file))
+        config = yaml.safe_load(open(config_file, "r", encoding="utf-8"))
         self.update_interval = config["update_interval"]
         self.api_key = config["api_key"]
         self.steam_ids = config["steam_ids"]
@@ -73,7 +73,7 @@ class Peeker:
         elif len(self.steam_ids) == 1:
             api_url = f"https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={self.api_key}&steamids={self.steam_ids[0]}"
         else:
-            api_url = f"https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={self.api_key}&steamids={','.join(self.steam_ids)}"
+            api_url = f"https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key={self.api_key}&steamids={','.join(str(id) for id in self.steam_ids)}"
         response = requests.get(api_url)
         if response.status_code == 200:
             self.last_update = time.time()
